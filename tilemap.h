@@ -8,7 +8,7 @@ class Tilemap
 {
 public:
     static std::vector<std::vector<int>> tiles;
-    static void setTiles(int size);
+    static void initTiles(int size);
 
     Tilemap();
 

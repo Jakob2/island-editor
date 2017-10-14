@@ -20,7 +20,7 @@ public:
     }view;
 
     static struct Editor{
-        std::vector<int> baseRange;
+        //std::vector<int> baseRange;
         int range;
         int ground; //0=>grass, 1=>rock, 2=>water
         QString text;

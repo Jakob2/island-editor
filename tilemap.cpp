@@ -2,7 +2,7 @@
 
 std::vector<std::vector<int>> Tilemap::tiles;
 
-void Tilemap::setTiles(int size){
+void Tilemap::initTiles(int size){
     Tilemap::tiles.clear();
     for(int x=0; x<size; x++){
         Tilemap::tiles.push_back(std::vector<int>());
@@ -10,11 +10,11 @@ void Tilemap::setTiles(int size){
             Tilemap::tiles[x].push_back(0);
         }
     }
-    std::cout<<"TILES SIZE: "<<Tilemap::tiles[0].size()<<" - "<<Tilemap::tiles[1].size()<<std::endl;
+    //std::cout<<"TILES SIZE: "<<Tilemap::tiles[0].size()<<" - "<<Tilemap::tiles[1].size()<<std::endl;
 }
 
 Tilemap::Tilemap(){
-    Tilemap::setTiles(10);
+    Tilemap::initTiles(10);
 }
 
 void Tilemap::ground(std::vector<std::vector<int>> &tiles){

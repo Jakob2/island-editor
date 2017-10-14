@@ -14,8 +14,8 @@ World::World(){
     World::view.z = 0;
     World::view.zoom = 1;
 
-    World::editor.baseRange = {10,15,20};
-    World::editor.range = World::editor.baseRange[0];
+    //World::editor.baseRange = {10,15,20};
+    World::editor.range = 10;
     World::editor.ground = 0;
     World::editor.text = "toggle ground option press k";
     World::editor.alterGround = false;

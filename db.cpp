@@ -24,8 +24,8 @@ void Db::connectDatabase(){
 
 void Db::setNames(int range){
     World::names.clear();
-    QString table;
-    switch(range){
+    QString table = Db::tableName(range);
+    /*switch(range){
         case 10:
             table = Db::smallTable;
         break;
@@ -35,12 +35,28 @@ void Db::setNames(int range){
         case 20:
             table = Db::bigTable;
         break;
-    }
+    }*/
     QSqlQuery query;
     if(query.exec("select distinct name from "+table)) std::cout<<"names selected"<<std::endl;
     else qDebug()<<"select names error: "<<query.lastError()<<" / "<<query.lastQuery();
     while(query.next()){
         World::names.push_back(QString::number(query.value(0).toInt()));
+    }
+}
+
+void Db::setTiles(int range, QString name){
+    std::cout<<"NAME: "<<name.toStdString()<<std::endl;
+    Tilemap::initTiles(range);
+    QSqlQuery query;
+    QString table = Db::tableName(range);
+    int x,z,ground;
+    if(query.exec("select x,z,ground from "+table+" where name = '"+name+"'")) std::cout<<"tiles selected"<<std::endl;
+    else qDebug()<<"select tiles error: "<<query.lastError()<<" / "<<query.lastQuery();
+    while(query.next()){
+        x = query.value(0).toInt();
+        z = query.value(1).toInt();
+        ground = query.value(2).toInt();
+        Tilemap::tiles[x][z] = ground;
     }
 }
 
@@ -95,6 +111,20 @@ void Db::saveIsland(std::vector<std::vector<int>> &tiles, int range, QString nam
                     else qDebug()<<"create small table error: "<<query.lastError()<<" / "<<query.lastQuery();
                 }
             }
+        break;
+    }
+}
+
+QString Db::tableName(int range){
+    switch(range){
+        case 10:
+            return Db::smallTable;
+        break;
+        case 15:
+            return Db::mediumTable;
+        break;
+        case 20:
+            return Db::bigTable;
         break;
     }
 }

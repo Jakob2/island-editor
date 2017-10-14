@@ -3,6 +3,7 @@
 
 #include "general.h"
 #include "world.h"
+#include "tilemap.h"
 
 class Db
 {
@@ -19,10 +20,13 @@ public:
     static QString bigTable;
     static void connectDatabase();
     static void setNames(int range);
+    static void setTiles(int range, QString name);
 
     static void newIsland(std::vector<std::vector<int> > &tiles);
     static void saveIsland(std::vector<std::vector<int>> &tiles, int range, QString name);
 
+private:
+    static QString tableName(int range);
 };
 
 #endif // DB_H

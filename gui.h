@@ -20,7 +20,9 @@ public slots:
     void ground();
     void zoom();
     void add();
-    void chooseName();
+    void setName();
+    void save();
+    void select();
 };
 
 #endif // GUI_H
