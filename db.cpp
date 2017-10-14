@@ -1,10 +1,5 @@
 #include "db.h"
 
-QString Db::database;
-QString Db::smallTable;
-QString Db::mediumTable;
-QString Db::bigTable;
-
 Db::Db(){
     Db::database = "islands";
     Db::smallTable = "small";

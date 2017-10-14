@@ -10,23 +10,23 @@ class Db
 public:
     Db();
 
-    static void createSmallTable();
-    static void createMediumTable();
-    static void createBigTable();
+    void createSmallTable();
+    void createMediumTable();
+    void createBigTable();
 
-    static QString database;
-    static QString smallTable;
-    static QString mediumTable;
-    static QString bigTable;
-    static void connectDatabase();
-    static void setNames(int range);
-    static void setTiles(int range, QString name);
+    QString database;
+    QString smallTable;
+    QString mediumTable;
+    QString bigTable;
+    void connectDatabase();
+    void setNames(int range);
+    void setTiles(int range, QString name);
 
-    static void newIsland(std::vector<std::vector<int> > &tiles);
-    static void saveIsland(std::vector<std::vector<int>> &tiles, int range, QString name);
+    void newIsland(std::vector<std::vector<int> > &tiles);
+    void saveIsland(std::vector<std::vector<int>> &tiles, int range, QString name);
 
 private:
-    static QString tableName(int range);
+    QString tableName(int range);
 };
 
 #endif // DB_H

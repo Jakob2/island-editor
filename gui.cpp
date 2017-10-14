@@ -25,17 +25,17 @@ void Gui::range(){
         case 0:
             World::editor.range = 10;
             Tilemap::initTiles(10);
-            Db::setNames(10);
+            setNames(10);
         break;
         case 1:
             World::editor.range = 15;
             Tilemap::initTiles(15);
-            Db::setNames(15);
+            setNames(15);
         break;
         case 2:
             World::editor.range = 20;
             Tilemap::initTiles(20);
-            Db::setNames(20);
+            setNames(20);
         break;
     }
     fillInNames();
@@ -50,8 +50,8 @@ void Gui::zoom(){
 }
 
 void Gui::add(){
-    Db::newIsland(Tilemap::tiles);
-    Db::setNames(Tilemap::tiles.size());
+    newIsland(Tilemap::tiles);
+    setNames(Tilemap::tiles.size());
     fillInNames();
 }
 
@@ -61,11 +61,11 @@ void Gui::setName(){
 }
 
 void Gui::save(){
-    Db::saveIsland(Tilemap::tiles, World::editor.range, QString::number(World::editor.name));
+    saveIsland(Tilemap::tiles, World::editor.range, QString::number(World::editor.name));
 }
 
 void Gui::select(){
     setName();
-    Db::setTiles(World::editor.range, QString::number(World::editor.name));
+    setTiles(World::editor.range, QString::number(World::editor.name));
 }
 

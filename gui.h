@@ -5,8 +5,9 @@
 #include "world.h"
 #include "ui_mainwindow.h"
 #include "tilemap.h"
+#include "db.h"
 
-class Gui : public QDialog, public Ui::MainWindow
+class Gui : public QDialog, public Ui::MainWindow, public Db
 {
     Q_OBJECT
 public:
