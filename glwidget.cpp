@@ -20,6 +20,7 @@ void GlWidget::paintGL(){
     glScalef(World::view.zoom,World::view.zoom,World::view.zoom);
     ground(Tilemap::tiles);
     text(10,20,World::editor.text);
+    text(10,40,"toggle mountain mode l");
 }
 
 void GlWidget::resizeGL(int w, int h){

@@ -61,7 +61,8 @@ void Gui::setName(){
 }
 
 void Gui::save(){
-    saveIsland(Tilemap::tiles, World::editor.range, QString::number(World::editor.name));
+    //std::cout<<"TEST NAME: "<<World::editor.name<<std::endl;
+    if(World::editor.name) saveIsland(Tilemap::tiles, World::editor.range, QString::number(World::editor.name));
 }
 
 void Gui::select(){
