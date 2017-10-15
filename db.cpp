@@ -194,6 +194,24 @@ void Db::addMountain(QString name, QString xx, QString zz, QString height){
     setMountains(table);
 }
 
+void Db::deleteMountain(QString name, QString x, QString z, QString height){
+    QSqlQuery query;
+    QString table;
+    switch(Tilemap::tiles.size()){
+        case 10:
+            table = "small";
+        break;
+        case 15:
+            table = "medium";
+        break;
+        case 20:
+            table = "big";
+        break;
+    }
+    if(query.exec("delete from "+table+" where name = '"+name+"' and x = '"+x+"' and z = '"+z+"' and height = '"+height+"'")) std::cout<<"mountain tile deleted"<<std::endl;
+    else qDebug()<<"delete mountain tile error: "<<query.lastError()<<" / "<<query.lastQuery();
+}
+
 QString Db::tableName(int range){
     switch(range){
         case 10:

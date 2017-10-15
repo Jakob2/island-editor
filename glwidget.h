@@ -24,6 +24,11 @@ private:
     void ddd();
     std::vector<float> camMoveUnit = {.5,.5};
     void text(int x,int y, QString text);
+    void alterGround();
+    void addMountain();
+    void deleteMountain();
+    void toggleGround();
+    void toggleMountain();
 };
 
 #endif // GLWIDGET_H

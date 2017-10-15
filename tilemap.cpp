@@ -40,11 +40,13 @@ void Tilemap::ground(std::vector<std::vector<std::vector<int> > > &tiles){
 
 void Tilemap::mountain(std::vector<std::vector<int> > &mountains){
     int x,z,height;
+    std::vector<float> selected = {.8,.8,.8};
     for(int i=0; i<(int)mountains.size(); i++){
         x = mountains[i][0];
         z = mountains[i][1];
         height = mountains[i][2];
-        cube(x,z,color(1),height);
+        if(World::editor.tile[0] == x && World::editor.tile[1] == z) cube(x,z,selected,height);
+        else cube(x,z,color(1),height);
     }
 }
 

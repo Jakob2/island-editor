@@ -42,6 +42,51 @@ void GlWidget::text(int x, int y, QString text){
     renderText(x,y,text);
 }
 
+void GlWidget::alterGround(){
+    Tilemap::tiles[World::editor.tile[0]][World::editor.tile[1]][0] = World::editor.ground;
+    Tilemap::tiles[World::editor.tile[0]][World::editor.tile[1]][1] = 1;
+}
+
+void GlWidget::addMountain(){
+    QString name,xx,zz,height;
+    name = QString::number(World::editor.name);
+    xx = QString::number(World::editor.tile[0]);
+    zz = QString::number(World::editor.tile[1]);
+    height = QString::number(1);
+    Db::addMountain(name,xx,zz,height);
+    Db::setMountains(QString::number(World::editor.name));
+}
+
+void GlWidget::deleteMountain(){
+    QString name,x,z,height;
+    name = QString::number(World::editor.name);
+    x = QString::number(World::editor.tile[0]);
+    z = QString::number(World::editor.tile[1]);
+    height = QString::number(World::editor.height);
+    Db::deleteMountain(name,x,z,height);
+    Db::setMountains(QString::number(World::editor.name));
+}
+
+void GlWidget::toggleGround(){
+    World::editor.alterGround ? World::editor.alterGround = false : World::editor.alterGround = true;
+    if(World::editor.alterGround) World::editor.textGround = "active ground option: "+QString::number(World::editor.ground);
+    else World::editor.textGround = "toggle ground mode press k";
+    if(World::editor.alterMountain){
+        World::editor.textMountain = "toggle mountain mode press l";
+        World::editor.alterMountain = false;
+    }
+}
+
+void GlWidget::toggleMountain(){
+    World::editor.alterMountain ? World::editor.alterMountain = false : World::editor.alterMountain = true;
+    if(World::editor.alterMountain) World::editor.textMountain = "active mountain height: ";
+    else World::editor.textMountain = "toggle mountain mode press l";
+    if(World::editor.alterGround){
+        World::editor.textGround = "toggle ground mode press k";
+        World::editor.alterGround = false;
+    }
+}
+
 void GlWidget::keyPressEvent(QKeyEvent *event){
     switch(event->key()){
     case Qt::Key_A:
@@ -60,24 +105,9 @@ void GlWidget::keyPressEvent(QKeyEvent *event){
         World::view.x -= camMoveUnit[1];
         World::view.z -= camMoveUnit[0];
         break;
-    case Qt::Key_K:
-        World::editor.alterGround ? World::editor.alterGround = false : World::editor.alterGround = true;
-        if(World::editor.alterGround) World::editor.textGround = "active ground option: "+QString::number(World::editor.ground);
-        else World::editor.textGround = "toggle ground mode press k";
-        if(World::editor.alterMountain){
-            World::editor.textMountain = "toggle mountain mode press l";
-            World::editor.alterMountain = false;
-        }
-        break;
-    case Qt::Key_L:
-        World::editor.alterMountain ? World::editor.alterMountain = false : World::editor.alterMountain = true;
-        if(World::editor.alterMountain) World::editor.textMountain = "active mountain height: ";
-        else World::editor.textMountain = "toggle mountain mode press l";
-        if(World::editor.alterGround){
-            World::editor.textGround = "toggle ground mode press k";
-            World::editor.alterGround = false;
-        }
-        break;
+    case Qt::Key_K: toggleGround(); break;
+    case Qt::Key_L: toggleMountain(); break;
+    case Qt::Key_X: deleteMountain(); break;
     }
 }
 
@@ -86,18 +116,9 @@ void GlWidget::mousePressEvent(QMouseEvent *event){
     mouseX = event->pos().x();
     mouseY = event->pos().y();
     //std::cout<<"mouseX: "<<mouseX<<" / mouseY: "<<mouseY<<std::endl;
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    ground(Tilemap::tiles);
     calculateGLCoords(mouseX,mouseY);
-    if(World::editor.alterGround){
-        Tilemap::tiles[World::editor.tile[0]][World::editor.tile[1]][0] = World::editor.ground;
-        Tilemap::tiles[World::editor.tile[0]][World::editor.tile[1]][1] = 1;
-    }
-    if(World::editor.alterMountain){
-        QString name,xx,zz,height;
-        name = QString::number(World::editor.name);
-        xx = QString::number(World::editor.tile[0]);
-        zz = QString::number(World::editor.tile[1]);
-        height = QString::number(1);
-        Db::addMountain(name,xx,zz,height);
-        Db::setMountains(QString::number(World::editor.name));
-    }
+    if(World::editor.alterGround) alterGround();
+    if(World::editor.alterMountain) addMountain();
 }

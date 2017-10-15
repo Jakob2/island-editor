@@ -5,7 +5,6 @@ Mouseray::Mouseray(){
 }
 
 void Mouseray::calculateGLCoords(int x, int y){
-    //glClear(GL_DEPTH_BUFFER_BIT);
     glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
     glGetDoublev(GL_PROJECTION_MATRIX, projection);
     glGetIntegerv(GL_VIEWPORT, viewport);

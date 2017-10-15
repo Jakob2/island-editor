@@ -27,6 +27,7 @@ public:
 
     static void setMountains(QString name);
     static void addMountain(QString name, QString xx, QString zz, QString height);
+    static void deleteMountain(QString name, QString x, QString z, QString height);
 
 private:
     QString tableName(int range);
