@@ -33,6 +33,8 @@ Tilemap::Tilemap(){
 void Tilemap::ground(std::vector<std::vector<std::vector<int> > > &tiles){
     for(float x=0; x<(float)World::editor.range; x++){
         for(float z=0; z<(float)World::editor.range; z++){
+            //cube(x,z,color(tiles[x][z][0]),2);
+            //cube(x,z,color(tiles[x][z][0]),1);
             cube(x,z,color(tiles[x][z][0]),0);
         }
     }
@@ -45,8 +47,9 @@ void Tilemap::mountain(std::vector<std::vector<int> > &mountains){
         x = mountains[i][0];
         z = mountains[i][1];
         height = mountains[i][2];
-        if(World::editor.tile[0] == x && World::editor.tile[1] == z) cube(x,z,selected,height);
-        else cube(x,z,color(1),height);
+        //if(World::editor.tile[0] == x && World::editor.tile[1] == z) cube(x,z,selected,height);
+        //else cube(x,z,color(1),height);
+        if(height == 1) cube(x,z,color(1),height);
     }
 }
 

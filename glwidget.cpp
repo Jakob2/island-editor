@@ -19,7 +19,7 @@ void GlWidget::paintGL(){
     ddd();
     glScalef(World::view.zoom,World::view.zoom,World::view.zoom);
     ground(Tilemap::tiles);
-    mountain(Tilemap::mountains);
+    //mountain(Tilemap::mountains);
     text(10,20,World::editor.textGround);
     text(10,40,World::editor.textMountain);
 }
@@ -116,8 +116,8 @@ void GlWidget::mousePressEvent(QMouseEvent *event){
     mouseX = event->pos().x();
     mouseY = event->pos().y();
     //std::cout<<"mouseX: "<<mouseX<<" / mouseY: "<<mouseY<<std::endl;
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    ground(Tilemap::tiles);
+    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //ground(Tilemap::tiles);
     calculateGLCoords(mouseX,mouseY);
     if(World::editor.alterGround) alterGround();
     if(World::editor.alterMountain) addMountain();

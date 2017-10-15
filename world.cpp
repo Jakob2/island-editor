@@ -7,9 +7,9 @@ std::vector<QString> World::names;
 World::World(){
     World::view.width = 800;
     World::view.height = 600;
-    World::view.eyeX = 1;
-    World::view.eyeY = 1;
-    World::view.eyeZ = 1;
+    World::view.eyeX = 3;
+    World::view.eyeY = 3;
+    World::view.eyeZ = 3;
     World::view.x = 0;
     World::view.z = 0;
     World::view.zoom = 1;
@@ -23,6 +23,6 @@ World::World(){
     World::editor.alterMountain = false;
     World::editor.tile = {0,0};
     World::editor.name = 1;
-    World::editor.height = 1;
+    World::editor.height = 0;
 }
 
