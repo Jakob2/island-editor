@@ -73,5 +73,9 @@ void GlWidget::mousePressEvent(QMouseEvent *event){
     mouseY = event->pos().y();
     //std::cout<<"mouseX: "<<mouseX<<" / mouseY: "<<mouseY<<std::endl;
     calculateGLCoords(mouseX,mouseY);
-    if(World::editor.alterGround) Tilemap::tiles[World::editor.tile[0]][World::editor.tile[1]] = World::editor.ground;
+    //if(World::editor.alterGround) Tilemap::tiles[World::editor.tile[0]][World::editor.tile[1]] = World::editor.ground;
+    if(World::editor.alterGround){
+        Tilemap::tiles[World::editor.tile[0]][World::editor.tile[1]][0] = World::editor.ground;
+        Tilemap::tiles[World::editor.tile[0]][World::editor.tile[1]][1] = 1;
+    }
 }

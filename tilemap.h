@@ -8,12 +8,12 @@
 class Tilemap : public Shape
 {
 public:
-    static std::vector<std::vector<int>> tiles;
+    static std::vector<std::vector<std::vector<int>>> tiles;
     static void initTiles(int size);
 
     Tilemap();
 
-    void ground(std::vector<std::vector<int> > &tiles);
+    void ground(std::vector<std::vector<std::vector<int>>> &tiles);
 
 private:
     std::vector<float> color(int ground);

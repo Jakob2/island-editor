@@ -22,9 +22,8 @@ public:
     void setNames(int range);
     void setTiles(int range, QString name);
 
-    void newIsland(std::vector<std::vector<int> > &tiles);
-    void saveIsland(std::vector<std::vector<int>> &tiles, int range, QString name);
-    QString saveIslandLoop(QString name, QString xx, QString zz, QString ground, int range);
+    void newIsland(std::vector<std::vector<std::vector<int>>> &tiles);
+    QString saveIsland(QString name, QString xx, QString zz, QString ground, int range);
 
 private:
     QString tableName(int range);

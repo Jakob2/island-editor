@@ -30,8 +30,8 @@ void Db::setNames(int range){
     }
 }
 
-void Db::setTiles(int range, QString name){
-    std::cout<<"NAME: "<<name.toStdString()<<std::endl;
+/*void Db::setTiles(int range, QString name){
+    //std::cout<<"NAME: "<<name.toStdString()<<std::endl;
     Tilemap::initTiles(range);
     QSqlQuery query;
     QString table = tableName(range);
@@ -43,6 +43,22 @@ void Db::setTiles(int range, QString name){
         z = query.value(1).toInt();
         ground = query.value(2).toInt();
         Tilemap::tiles[x][z] = ground;
+    }
+}*/
+
+void Db::setTiles(int range, QString name){
+    //std::cout<<"NAME: "<<name.toStdString()<<std::endl;
+    Tilemap::initTiles(range);
+    QSqlQuery query;
+    QString table = tableName(range);
+    int x,z,ground;
+    if(query.exec("select x,z,ground from "+table+" where name = '"+name+"'")) std::cout<<"tiles selected"<<std::endl;
+    else qDebug()<<"select tiles error: "<<query.lastError()<<" / "<<query.lastQuery();
+    while(query.next()){
+        x = query.value(0).toInt();
+        z = query.value(1).toInt();
+        ground = query.value(2).toInt();
+        Tilemap::tiles[x][z][0] = ground;
     }
 }
 
@@ -94,7 +110,7 @@ void Db::createBigTable(){
     else qDebug()<<"add open column error: "<<query.lastError()<<" / "<<query.lastQuery();
 }
 
-void Db::newIsland(std::vector<std::vector<int>> &tiles){
+void Db::newIsland(std::vector<std::vector<std::vector<int>>> &tiles){
     QSqlQuery query;
     QString xx,zz, ground,name;
     int id;
@@ -111,29 +127,14 @@ void Db::newIsland(std::vector<std::vector<int>> &tiles){
         for(int z=0; z<(int)tiles[x].size(); z++){
             xx = QString::number(x);
             zz = QString::number(z);
-            ground = QString::number(tiles[x][z]);
+            ground = QString::number(tiles[x][z][0]);
             if(query.exec("insert into "+table+" (name,x,z,ground) values ("+name+","+xx+","+zz+","+ground+")")) std::cout<<"new island created"<<std::endl;
             else qDebug()<<"create new island error: "<<query.lastError()<<" / "<<query.lastQuery();
         }
     }
 }
 
-void Db::saveIsland(std::vector<std::vector<int>> &tiles, int range, QString name){
-    QSqlQuery query;
-    QString xx,zz, ground;
-    QString table = tableName(range);
-    for(int x=0; x<(int)tiles.size(); x++){
-        for(int z=0; z<(int)tiles[x].size(); z++){
-            xx = QString::number(x);
-            zz = QString::number(z);
-            ground = QString::number(tiles[x][z]);
-            if(query.exec("insert into "+table+" (name,x,z,ground) values ("+name+","+xx+","+zz+","+ground+")")) std::cout<<"island tile saved"<<std::endl;
-            else qDebug()<<"save island tile error: "<<query.lastError()<<" / "<<query.lastQuery();
-        }
-    }
-}
-
-QString Db::saveIslandLoop(QString name, QString xx, QString zz, QString ground, int range){
+QString Db::saveIsland(QString name, QString xx, QString zz, QString ground, int range){
     QString table = tableName(range);
     QSqlQuery query;
     QString tile = "["+xx+"|"+zz+"]";
@@ -152,6 +153,8 @@ QString Db::tableName(int range){
         case 20:
             return bigTable;
         break;
+        default:
+            return smallTable;
     }
 }
 
