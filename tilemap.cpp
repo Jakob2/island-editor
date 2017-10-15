@@ -20,26 +20,14 @@ Tilemap::Tilemap(){
 void Tilemap::ground(std::vector<std::vector<int>> &tiles){
     for(float x=0; x<(float)World::editor.range; x++){
         for(float z=0; z<(float)World::editor.range; z++){
-            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-            glLineWidth(2.0);
-            glColor3f(0,0,0);
-            glBegin(GL_POLYGON);
-            glVertex3f(x+World::view.x,0,z+World::view.z);
-            glVertex3f(x+World::view.x+1,0,z+World::view.z);
-            glVertex3f(x+World::view.x+1,0,z+World::view.z+1);
-            glVertex3f(x+World::view.x,0,z+World::view.z+1);
-            glEnd();
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            if(tiles[x][z] == 0) glColor3f(0,1,0);
-            if(tiles[x][z] == 1) glColor3f(.4,.4,.4);
-            if(tiles[x][z] == 2) glColor3f(0,0,1);
-            glBegin(GL_POLYGON);
-            glVertex3f(x+World::view.x,0,z+World::view.z);
-            glVertex3f(x+World::view.x+1,0,z+World::view.z);
-            glVertex3f(x+World::view.x+1,0,z+World::view.z+1);
-            glVertex3f(x+World::view.x,0,z+World::view.z+1);
-            glEnd();
+            cube(x,z, color(tiles[x][z]));
         }
     }
+}
+
+std::vector<float> Tilemap::color(int ground){
+    if(ground == 0) return {0,1,0};
+    if(ground == 1) return {.4,.4,.4};
+    if(ground == 2) return {0,0,1};
 }
 

@@ -61,8 +61,16 @@ void Gui::setName(){
 }
 
 void Gui::save(){
-    //std::cout<<"TEST NAME: "<<World::editor.name<<std::endl;
-    if(World::editor.name) saveIsland(Tilemap::tiles, World::editor.range, QString::number(World::editor.name));
+    //if(World::editor.name) saveIsland(Tilemap::tiles, World::editor.range, QString::number(World::editor.name));
+    QString xx,zz,ground;
+    for(int x=0; x<(int)Tilemap::tiles.size(); x++){
+        for(int z=0; z<(int)Tilemap::tiles[x].size(); z++){
+            xx = QString::number(x);
+            zz = QString::number(z);
+            ground = QString::number(Tilemap::tiles[x][z]);
+            textBrowser->append(saveIslandLoop(QString::number(World::editor.name), xx, zz, ground, World::editor.range));
+        }
+    }
 }
 
 void Gui::select(){

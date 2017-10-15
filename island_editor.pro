@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     gui.cpp \
     tilemap.cpp \
     db.cpp \
-    mouseray.cpp
+    mouseray.cpp \
+    shape.cpp
 
 HEADERS  += mainwindow.h \
     glwidget.h \
@@ -28,7 +29,8 @@ HEADERS  += mainwindow.h \
     gui.h \
     tilemap.h \
     db.h \
-    mouseray.h
+    mouseray.h \
+    shape.h
 
 FORMS    += mainwindow.ui
 

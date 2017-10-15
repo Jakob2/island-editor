@@ -37,7 +37,7 @@ void Mouseray::intersect(std::vector<float> in){
     if(tzz < 0) tzz = 0;
     if(tzz > World::editor.range-1) tzz = World::editor.range-1;
     World::editor.tile = {txx,tzz};
-    //std::cout<<"TILE: "<<World::editor.tile[0]<<"-"<<World::editor.tile[1]<<std::endl;
+    std::cout<<"TILE: "<<World::editor.tile[0]<<"-"<<World::editor.tile[1]<<std::endl;
 }
 
 std::vector<float> Mouseray::direction(std::vector<float> a, std::vector<float> b){

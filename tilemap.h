@@ -3,8 +3,9 @@
 
 #include "general.h"
 #include "world.h"
+#include "shape.h"
 
-class Tilemap
+class Tilemap : public Shape
 {
 public:
     static std::vector<std::vector<int>> tiles;
@@ -13,6 +14,9 @@ public:
     Tilemap();
 
     void ground(std::vector<std::vector<int> > &tiles);
+
+private:
+    std::vector<float> color(int ground);
 };
 
 #endif // TILEMAP_H

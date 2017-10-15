@@ -133,6 +133,14 @@ void Db::saveIsland(std::vector<std::vector<int>> &tiles, int range, QString nam
     }
 }
 
+QString Db::saveIslandLoop(QString name, QString xx, QString zz, QString ground, int range){
+    QString table = tableName(range);
+    QSqlQuery query;
+    QString tile = "["+xx+"|"+zz+"]";
+    if(query.exec("insert into "+table+" (name,x,z,ground) values ("+name+","+xx+","+zz+","+ground+")")) return "Tile "+tile+" saved.";
+    return "Save tile "+tile+" error.";
+}
+
 QString Db::tableName(int range){
     switch(range){
         case 10:
