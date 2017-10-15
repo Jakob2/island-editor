@@ -11,6 +11,7 @@ void Gui::connectGui(){
     connect(pushButton_newmap, SIGNAL(pressed()), this, SLOT(add()));
     connect(comboBox_names, SIGNAL(currentIndexChanged(int)), this, SLOT(select()));
     connect(pushButton_savemap, SIGNAL(pressed()), this, SLOT(save()));
+    connect(spinBox_height, SIGNAL(valueChanged(int)), this, SLOT(height()));
 }
 
 void Gui::fillInNames(){
@@ -50,7 +51,7 @@ void Gui::zoom(){
 }
 
 void Gui::add(){
-    newIsland(Tilemap::tiles);
+    textBrowser->append(newIsland(Tilemap::tiles));
     setNames(Tilemap::tiles.size());
     fillInNames();
 }
@@ -70,11 +71,16 @@ void Gui::save(){
             if(Tilemap::tiles[x][z][1]) textBrowser->append(saveIsland(QString::number(World::editor.name), xx, zz, ground, World::editor.range));
         }
     }
-
 }
 
 void Gui::select(){
     setName();
     setTiles(World::editor.range, QString::number(World::editor.name));
+    setMountains(QString::number(World::editor.name));
+}
+
+void Gui::height(){
+    World::editor.height = spinBox_height->value();
+    std::cout<<World::editor.height<<std::endl;
 }
 

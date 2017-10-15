@@ -17,9 +17,12 @@ World::World(){
     //World::editor.baseRange = {10,15,20};
     World::editor.range = 10;
     World::editor.ground = 0;
-    World::editor.text = "toggle ground option press k";
+    World::editor.textGround = "toggle ground mode press k";
+    World::editor.textMountain = "toggle mountain mode l";
     World::editor.alterGround = false;
+    World::editor.alterMountain = false;
     World::editor.tile = {0,0};
     World::editor.name = 1;
+    World::editor.height = 1;
 }
 

@@ -8,14 +8,14 @@ class Shape
 {
 public:
     //Shape();
-    void cube(float x, float z, std::vector<float> color);
+    void cube(float x, float z, std::vector<float> color, int height);
 
 private:
-    void top(float x, float z, std::vector<float> color);
-    void left(float x, float z, std::vector<float> color);
-    void right(float x, float z, std::vector<float> color);
-    void front(float x, float z, std::vector<float> color);
-    void back(float x, float z, std::vector<float> color);
+    void top(float x, float z, std::vector<float> color, int height);
+    void left(float x, float z, std::vector<float> color, int height);
+    void right(float x, float z, std::vector<float> color, int height);
+    void front(float x, float z, std::vector<float> color, int height);
+    void back(float x, float z, std::vector<float> color, int height);
 
 };
 

@@ -23,10 +23,13 @@ public:
         //std::vector<int> baseRange;
         int range;
         int ground; //0=>grass, 1=>rock, 2=>water
-        QString text;
+        QString textGround;
+        QString textMountain;
         bool alterGround;
+        bool alterMountain;
         std::vector<float> tile;
         int name;
+        int height;
     }editor;
 
     static std::vector<QString> names;

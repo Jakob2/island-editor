@@ -24,6 +24,7 @@ public slots:
     void setName();
     void save();
     void select();
+    void height();
 };
 
 #endif // GUI_H

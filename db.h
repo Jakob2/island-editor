@@ -22,11 +22,19 @@ public:
     void setNames(int range);
     void setTiles(int range, QString name);
 
-    void newIsland(std::vector<std::vector<std::vector<int>>> &tiles);
+    QString newIsland(std::vector<std::vector<std::vector<int>>> &tiles);
     QString saveIsland(QString name, QString xx, QString zz, QString ground, int range);
+
+    static void setMountains(QString name);
+    static void addMountain(QString name, QString xx, QString zz, QString height);
 
 private:
     QString tableName(int range);
+    /*std::vector<std::vector<int>> cube = {{0,0,0},{1,0,0},{1,0,1},{0,0,1}, //top
+                                          {0,0,0},{0,-1,0},{0,-1,1},{0,0,1}, //left
+                                          {1,0,0},{1,-1,0},{1,-1,1},{1,0,1}, //right
+                                          {0,0,1},{0,-1,1},{1,-1,1},{1,0,1}, //front
+                                          {0,0,0},{0,-1,0},{1,-1,0},{1,0,0}}; //back*/
 };
 
 #endif // DB_H
