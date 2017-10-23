@@ -33,7 +33,7 @@ Tilemap::Tilemap(){
 void Tilemap::ground(std::vector<std::vector<std::vector<int> > > &tiles){
     for(float x=0; x<(float)World::editor.range; x++){
         for(float z=0; z<(float)World::editor.range; z++){
-            //cube(x,z,color(tiles[x][z][0]),2);
+            //cube(x,z,color(tiles[x][z][0]),5);
             //cube(x,z,color(tiles[x][z][0]),1);
             cube(x,z,color(tiles[x][z][0]),0);
         }
@@ -47,16 +47,41 @@ void Tilemap::mountain(std::vector<std::vector<int> > &mountains){
         x = mountains[i][0];
         z = mountains[i][1];
         height = mountains[i][2];
+        //std::cout<<"HEIGHT: "<<height<<std::endl;
         //if(World::editor.tile[0] == x && World::editor.tile[1] == z) cube(x,z,selected,height);
         //else cube(x,z,color(1),height);
-        if(height == 1) cube(x,z,color(1),height);
+        cube(x,z,color(1),height);
+    }
+}
+
+void Tilemap::mountainColors(std::vector<std::vector<int> > &mountains){
+    int x,z,height;
+    for(int i=0; i<(int)mountains.size(); i++){
+        x = mountains[i][0];
+        z = mountains[i][1];
+        height = mountains[i][2];
+        switch(height){
+            //case 0: cube(x,z,color(3),height); break;
+            case 1: cube(x,z,color(4),height); break;
+            case 2: cube(x,z,color(5),height); break;
+            case 3: cube(x,z,color(6),height); break;
+            //case 4: cube(x,z,color(7),height); break;
+            //case 5: cube(x,z,color(7),height); break;
+        }
     }
 }
 
 std::vector<float> Tilemap::color(int ground){
-    if(ground == 0) return {0,1,0};
-    if(ground == 1) return {.4,.4,.4};
-    if(ground == 2) return {0,0,1};
-    return {0,0,0};
+   switch(ground){
+        case 0: return {0,1,0}; break;
+        case 1: return {.4,.4,.4}; break;
+        case 2: return {0,0,1}; break;
+        case 3: return {.1,0,0}; break;
+        case 4: return {.2,0,0}; break;
+        case 5: return {.3,0,0}; break;
+        case 6: return {.4,0,0}; break;
+        //case 7: return {.5,0,0}; break;
+        default: return {0,0,0};
+    }
 }
 

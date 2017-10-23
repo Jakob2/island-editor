@@ -14,31 +14,8 @@ void Mouseray::calculateGLCoords(int x, int y){
     gluUnProject(winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
     e = {(float)World::view.eyeX, (float)World::view.eyeY, (float)World::view.eyeZ};
     p = {(float)posX, (float)posY, (float)posZ};
-    //intersect(direction(e,p));
-    test(direction(e,p));
+    intersect(direction(e,p));
 }
-
-/*void Mouseray::intersect(std::vector<float> in){
-    float x, y, z, r, t, xx, zz; // yy,
-    x = in[0];
-    y = in[1];
-    z = in[2];
-    r = ((-World::view.eyeY*x) + (y*World::view.eyeX)) / y;
-    t = (World::view.eyeX-r) / -x;
-    xx = World::view.eyeX + (t * x);
-    //yy = World::view.eyeY + (t * y);
-    zz = World::view.eyeZ + (t * z);
-    std::cout<<"xx: "<<xx<<" - zz: "<<zz<<std::endl;
-    float txx, tzz;
-    txx = floor(xx-World::view.x);
-    tzz = floor(zz-World::view.z);
-    if(txx < 0) txx = 0;
-    if(txx > World::editor.range-1) txx = World::editor.range-1;
-    if(tzz < 0) tzz = 0;
-    if(tzz > World::editor.range-1) tzz = World::editor.range-1;
-    World::editor.tile = {txx,tzz};
-    std::cout<<"TILE: "<<World::editor.tile[0]<<"-"<<World::editor.tile[1]<<std::endl;
-}*/
 
 std::vector<float> Mouseray::direction(std::vector<float> a, std::vector<float> b){
     std::vector<float> res;
@@ -49,12 +26,26 @@ std::vector<float> Mouseray::direction(std::vector<float> a, std::vector<float> 
     return res;
 }
 
-void Mouseray::test(std::vector<float> in){
+void Mouseray::intersect(std::vector<float> in){
     float t,x,y,z;
     t = (World::editor.height-World::view.eyeY)/in[1];
     x = World::view.eyeX + (t*in[0]);
     y = World::editor.height;
     z = World::view.eyeZ + (t*in[2]);
+    if(x < 0) x = 0;
+    if(x > World::editor.range-1) x = World::editor.range-1;
+    if(z < 0) z = 0;
+    if(z > World::editor.range-1) z = World::editor.range-1;
+    World::editor.tile = {(int)floor(x),(int)floor(z)};
     std::cout<<"X: "<<x<<" - Y: "<<y<<" - Z: "<<z<<std::endl;
 }
+
+void Mouseray::readPixelColor(int x, int y){
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    unsigned char pixelcolor[3];
+    glReadPixels(x,World::view.height-y, 1,1, GL_RGB,GL_UNSIGNED_BYTE, pixelcolor);
+    World::mouse.pickedColor = pixelcolor[0] + pixelcolor[1] * 256 + pixelcolor[2] * 256*256;
+    //std::cout<<"PIXELID: "<<World::mouse.pickedColor<<std::endl;
+}
+
 

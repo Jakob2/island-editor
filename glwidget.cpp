@@ -19,7 +19,7 @@ void GlWidget::paintGL(){
     ddd();
     glScalef(World::view.zoom,World::view.zoom,World::view.zoom);
     ground(Tilemap::tiles);
-    //mountain(Tilemap::mountains);
+    mountain(Tilemap::mountains);
     text(10,20,World::editor.textGround);
     text(10,40,World::editor.textMountain);
 }
@@ -28,6 +28,47 @@ void GlWidget::resizeGL(int w, int h){
     World::view.height = GlWidget::height();
     World::view.width = GlWidget::width();
 }
+
+void GlWidget::keyPressEvent(QKeyEvent *event){
+    switch(event->key()){
+    case Qt::Key_A:
+        World::view.x += camMoveUnit[0];
+        World::view.z -= camMoveUnit[1];
+        break;
+    case Qt::Key_D:
+        World::view.x -= camMoveUnit[0];
+        World::view.z += camMoveUnit[1];
+        break;
+    case Qt::Key_W:
+        World::view.x += camMoveUnit[1];
+        World::view.z += camMoveUnit[0];
+        break;
+    case Qt::Key_S:
+        World::view.x -= camMoveUnit[1];
+        World::view.z -= camMoveUnit[0];
+        break;
+    case Qt::Key_K: toggleGround(); break;
+    case Qt::Key_L: toggleMountain(); break;
+    case Qt::Key_X: deleteMountain(); break;
+    }
+}
+
+void GlWidget::mousePressEvent(QMouseEvent *event){
+    int mouseX, mouseY;
+    mouseX = event->pos().x();
+    mouseY = event->pos().y();
+    //std::cout<<"mouseX: "<<mouseX<<" / mouseY: "<<mouseY<<std::endl;
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    mountainColors(Tilemap::mountains);
+    readPixelColor(mouseX,mouseY);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    ground(Tilemap::tiles);
+    mountain(Tilemap::mountains);
+    calculateGLCoords(mouseX,mouseY);
+    if(World::editor.alterGround) alterGround();
+    if(World::editor.alterMountain) addMountain();
+}
+
 
 void GlWidget::ddd(){
     glViewport(0,0, World::view.width,World::view.height);
@@ -52,9 +93,14 @@ void GlWidget::addMountain(){
     name = QString::number(World::editor.name);
     xx = QString::number(World::editor.tile[0]);
     zz = QString::number(World::editor.tile[1]);
-    height = QString::number(1);
-    Db::addMountain(name,xx,zz,height);
-    Db::setMountains(QString::number(World::editor.name));
+    height = QString::number(World::editor.height+1);
+    if((World::editor.height == 0 && World::mouse.pickedColor == 8421504)
+    || (World::editor.height == 1 && World::mouse.pickedColor == 51)
+    || (World::editor.height == 2 && World::mouse.pickedColor == 76)
+    || (World::editor.height == 3 && World::mouse.pickedColor == 102)){
+        Db::addMountain(name,xx,zz,height);
+        Db::setMountains(QString::number(World::editor.name));
+    }
 }
 
 void GlWidget::deleteMountain(){
@@ -87,38 +133,3 @@ void GlWidget::toggleMountain(){
     }
 }
 
-void GlWidget::keyPressEvent(QKeyEvent *event){
-    switch(event->key()){
-    case Qt::Key_A:
-        World::view.x += camMoveUnit[0];
-        World::view.z -= camMoveUnit[1];
-        break;
-    case Qt::Key_D:
-        World::view.x -= camMoveUnit[0];
-        World::view.z += camMoveUnit[1];
-        break;
-    case Qt::Key_W:
-        World::view.x += camMoveUnit[1];
-        World::view.z += camMoveUnit[0];
-        break;
-    case Qt::Key_S:
-        World::view.x -= camMoveUnit[1];
-        World::view.z -= camMoveUnit[0];
-        break;
-    case Qt::Key_K: toggleGround(); break;
-    case Qt::Key_L: toggleMountain(); break;
-    case Qt::Key_X: deleteMountain(); break;
-    }
-}
-
-void GlWidget::mousePressEvent(QMouseEvent *event){
-    int mouseX, mouseY;
-    mouseX = event->pos().x();
-    mouseY = event->pos().y();
-    //std::cout<<"mouseX: "<<mouseX<<" / mouseY: "<<mouseY<<std::endl;
-    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    //ground(Tilemap::tiles);
-    calculateGLCoords(mouseX,mouseY);
-    if(World::editor.alterGround) alterGround();
-    if(World::editor.alterMountain) addMountain();
-}

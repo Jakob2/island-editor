@@ -2,6 +2,7 @@
 
 World::Window World::view;
 World::Editor World::editor;
+World::Mouse World::mouse;
 std::vector<QString> World::names;
 
 World::World(){

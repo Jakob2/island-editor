@@ -27,10 +27,14 @@ public:
         QString textMountain;
         bool alterGround;
         bool alterMountain;
-        std::vector<float> tile;
+        std::vector<int> tile;
         int name;
         int height;
     }editor;
+
+    static struct Mouse{
+        int pickedColor;
+    }mouse;
 
     static std::vector<QString> names;
 };

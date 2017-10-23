@@ -15,7 +15,7 @@ Db::Db(){
 
 void Db::connectDatabase(){
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("/home/ok/jakob/QT4/DATABASES/"+database);
+    db.setDatabaseName("/home/jakob/QT4/DATABASES/"+database);
     if(!db.open()) std::cout<< "Error: connection with database fail"<<std::endl;
     else std::cout<< "Database: connection ok"<<std::endl;
 }
@@ -44,64 +44,12 @@ void Db::setTiles(int range, QString name){
         z = query.value(1).toInt();
         ground = query.value(2).toInt();
         //height = query.value(3).toInt();
-        Tilemap::tiles[x][z][0] = ground;
+        Tilemap::tiles[x][z][0] = ground;        
+        //Tilemap::tiles[x][z][1] = 0;
         //Tilemap::tiles[x][z][2] = height;
     }
 }
 
-void Db::createSmallTable(){
-    QSqlQuery query;
-    if(query.exec("create table if not exists "+smallTable+" (`0` int)")) std::cout<<"small table created"<<std::endl;
-    else qDebug()<<"create small table error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+smallTable+" add column name int")) std::cout<<"ID column added"<<std::endl;
-    else qDebug()<<"add ID column error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+smallTable+" add column x int")) std::cout<<"X column added"<<std::endl;
-    else qDebug()<<"add X column error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+smallTable+" add column z int")) std::cout<<"Z column added"<<std::endl;
-    else qDebug()<<"add Z column error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+smallTable+" add column ground int")) std::cout<<"ground column added"<<std::endl;
-    else qDebug()<<"add ground column error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+smallTable+" add column open int")) std::cout<<"open column added"<<std::endl;
-    else qDebug()<<"add open column error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+smallTable+" add column height int")) std::cout<<"height column added"<<std::endl;
-    else qDebug()<<"add height column error: "<<query.lastError()<<" / "<<query.lastQuery();
-}
-
-void Db::createMediumTable(){
-    QSqlQuery query;
-    if(query.exec("create table if not exists "+mediumTable+" (`0` int)")) std::cout<<"small table created"<<std::endl;
-    else qDebug()<<"create small table error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+mediumTable+" add column name int")) std::cout<<"ID column added"<<std::endl;
-    else qDebug()<<"add ID column error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+mediumTable+" add column x int")) std::cout<<"X column added"<<std::endl;
-    else qDebug()<<"add X column error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+mediumTable+" add column z int")) std::cout<<"Z column added"<<std::endl;
-    else qDebug()<<"add Z column error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+mediumTable+" add column ground int")) std::cout<<"ground column added"<<std::endl;
-    else qDebug()<<"add ground column error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+mediumTable+" add column open int")) std::cout<<"open column added"<<std::endl;
-    else qDebug()<<"add open column error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+mediumTable+" add column height int")) std::cout<<"height column added"<<std::endl;
-    else qDebug()<<"add height column error: "<<query.lastError()<<" / "<<query.lastQuery();
-}
-
-void Db::createBigTable(){
-    QSqlQuery query;
-    if(query.exec("create table if not exists "+bigTable+" (`0` int)")) std::cout<<"small table created"<<std::endl;
-    else qDebug()<<"create small table error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+bigTable+" add column name int")) std::cout<<"ID column added"<<std::endl;
-    else qDebug()<<"add ID column error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+bigTable+" add column x int")) std::cout<<"X column added"<<std::endl;
-    else qDebug()<<"add X column error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+bigTable+" add column z int")) std::cout<<"Z column added"<<std::endl;
-    else qDebug()<<"add Z column error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+bigTable+" add column ground int")) std::cout<<"ground column added"<<std::endl;
-    else qDebug()<<"add ground column error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+bigTable+" add column open int")) std::cout<<"open column added"<<std::endl;
-    else qDebug()<<"add open column error: "<<query.lastError()<<" / "<<query.lastQuery();
-    if(query.exec("alter table "+bigTable+" add column height int")) std::cout<<"height column added"<<std::endl;
-    else qDebug()<<"add height column error: "<<query.lastError()<<" / "<<query.lastQuery();
-}
 
 QString Db::newIsland(std::vector<std::vector<std::vector<int>>> &tiles){
     QSqlQuery query;
@@ -127,6 +75,7 @@ QString Db::newIsland(std::vector<std::vector<std::vector<int>>> &tiles){
             return "Create new island error.";
         }
     }
+    return "Create new island error: tiles vector is empty.";
 }
 
 QString Db::saveIsland(QString name, QString xx, QString zz, QString ground, int range){
@@ -228,4 +177,56 @@ QString Db::tableName(int range){
     }
 }
 
+void Db::createSmallTable(){
+    QSqlQuery query;
+    if(query.exec("create table if not exists "+smallTable+" (`0` int)")) std::cout<<"small table created"<<std::endl;
+    else qDebug()<<"create small table error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+smallTable+" add column name int")) std::cout<<"ID column added"<<std::endl;
+    else qDebug()<<"add ID column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+smallTable+" add column x int")) std::cout<<"X column added"<<std::endl;
+    else qDebug()<<"add X column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+smallTable+" add column z int")) std::cout<<"Z column added"<<std::endl;
+    else qDebug()<<"add Z column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+smallTable+" add column ground int")) std::cout<<"ground column added"<<std::endl;
+    else qDebug()<<"add ground column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+smallTable+" add column open int")) std::cout<<"open column added"<<std::endl;
+    else qDebug()<<"add open column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+smallTable+" add column height int")) std::cout<<"height column added"<<std::endl;
+    else qDebug()<<"add height column error: "<<query.lastError()<<" / "<<query.lastQuery();
+}
 
+void Db::createMediumTable(){
+    QSqlQuery query;
+    if(query.exec("create table if not exists "+mediumTable+" (`0` int)")) std::cout<<"small table created"<<std::endl;
+    else qDebug()<<"create small table error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+mediumTable+" add column name int")) std::cout<<"ID column added"<<std::endl;
+    else qDebug()<<"add ID column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+mediumTable+" add column x int")) std::cout<<"X column added"<<std::endl;
+    else qDebug()<<"add X column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+mediumTable+" add column z int")) std::cout<<"Z column added"<<std::endl;
+    else qDebug()<<"add Z column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+mediumTable+" add column ground int")) std::cout<<"ground column added"<<std::endl;
+    else qDebug()<<"add ground column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+mediumTable+" add column open int")) std::cout<<"open column added"<<std::endl;
+    else qDebug()<<"add open column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+mediumTable+" add column height int")) std::cout<<"height column added"<<std::endl;
+    else qDebug()<<"add height column error: "<<query.lastError()<<" / "<<query.lastQuery();
+}
+
+void Db::createBigTable(){
+    QSqlQuery query;
+    if(query.exec("create table if not exists "+bigTable+" (`0` int)")) std::cout<<"small table created"<<std::endl;
+    else qDebug()<<"create small table error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+bigTable+" add column name int")) std::cout<<"ID column added"<<std::endl;
+    else qDebug()<<"add ID column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+bigTable+" add column x int")) std::cout<<"X column added"<<std::endl;
+    else qDebug()<<"add X column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+bigTable+" add column z int")) std::cout<<"Z column added"<<std::endl;
+    else qDebug()<<"add Z column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+bigTable+" add column ground int")) std::cout<<"ground column added"<<std::endl;
+    else qDebug()<<"add ground column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+bigTable+" add column open int")) std::cout<<"open column added"<<std::endl;
+    else qDebug()<<"add open column error: "<<query.lastError()<<" / "<<query.lastQuery();
+    if(query.exec("alter table "+bigTable+" add column height int")) std::cout<<"height column added"<<std::endl;
+    else qDebug()<<"add height column error: "<<query.lastError()<<" / "<<query.lastQuery();
+}

@@ -68,7 +68,10 @@ void Gui::save(){
             xx = QString::number(x);
             zz = QString::number(z);
             ground = QString::number(Tilemap::tiles[x][z][0]);
-            if(Tilemap::tiles[x][z][1]) textBrowser->append(saveIsland(QString::number(World::editor.name), xx, zz, ground, World::editor.range));
+            if(Tilemap::tiles[x][z][1]){
+                Tilemap::tiles[x][z][1] = 0;
+                textBrowser->append(saveIsland(QString::number(World::editor.name), xx, zz, ground, World::editor.range));
+            }
         }
     }
 }

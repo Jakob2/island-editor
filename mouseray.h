@@ -9,6 +9,7 @@ class Mouseray
 public:
     Mouseray();
     void calculateGLCoords(int x, int y);
+    void readPixelColor(int x, int y);
 
 private:
     GLint viewport[4];// Where The Viewport Values Will Be Stored
@@ -19,10 +20,9 @@ private:
     GLdouble posX, posY, posZ;
     std::vector<float> e = {(float)World::view.eyeX, (float)World::view.eyeY, (float)World::view.eyeZ};
     std::vector<float> p = {0,0,0};
-    //void intersect(std::vector<float> in);
+    void intersect(std::vector<float> in);
     std::vector<float> direction(std::vector<float> a, std::vector<float> b);
-
-    void test(std::vector<float> in);
+    int pickedId;
 };
 
 #endif // MOUSERAY_H

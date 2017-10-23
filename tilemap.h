@@ -18,6 +18,7 @@ public:
 
     void ground(std::vector<std::vector<std::vector<int>>> &tiles);
     void mountain(std::vector<std::vector<int>> &mountains);
+    void mountainColors(std::vector<std::vector<int>> &mountains);
 
 private:
     std::vector<float> color(int ground);
