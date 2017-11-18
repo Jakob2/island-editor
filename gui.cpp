@@ -11,7 +11,6 @@ void Gui::connectGui(){
     connect(pushButton_newmap, SIGNAL(pressed()), this, SLOT(add()));
     connect(comboBox_names, SIGNAL(currentIndexChanged(int)), this, SLOT(select()));
     connect(pushButton_savemap, SIGNAL(pressed()), this, SLOT(save()));
-    connect(spinBox_height, SIGNAL(valueChanged(int)), this, SLOT(height()));
 }
 
 void Gui::fillInNames(){

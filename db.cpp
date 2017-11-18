@@ -50,7 +50,6 @@ void Db::setTiles(int range, QString name){
     }
 }
 
-
 QString Db::newIsland(std::vector<std::vector<std::vector<int>>> &tiles){
     QSqlQuery query;
     QString xx,zz, ground,name;

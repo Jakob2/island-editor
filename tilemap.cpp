@@ -48,9 +48,8 @@ void Tilemap::mountain(std::vector<std::vector<int> > &mountains){
         z = mountains[i][1];
         height = mountains[i][2];
         //std::cout<<"HEIGHT: "<<height<<std::endl;
-        //if(World::editor.tile[0] == x && World::editor.tile[1] == z) cube(x,z,selected,height);
-        //else cube(x,z,color(1),height);
-        cube(x,z,color(1),height);
+        if(World::editor.tile[0] == x && World::editor.tile[1] == z) cube(x,z,selected,height);
+        else cube(x,z,color(1),height);
     }
 }
 

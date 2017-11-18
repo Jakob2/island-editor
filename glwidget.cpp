@@ -78,7 +78,7 @@ void GlWidget::ddd(){
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(60.0, (float)World::view.width/World::view.height, 0.01, 100.0);
-    gluLookAt(World::view.eyeX,World::view.eyeY,World::view.eyeZ, 0,0,0, 0,1,0);
+    gluLookAt(World::view.eyeX+World::view.x,World::view.eyeY,World::view.eyeZ+World::view.z, 0+World::view.x,0,0+World::view.z, 0,1,0);
 }
 
 void GlWidget::text(int x, int y, QString text){
@@ -115,15 +115,15 @@ void GlWidget::toggleGround(){
     if(World::editor.alterGround) World::editor.textGround = "active ground option: "+QString::number(World::editor.ground);
     else World::editor.textGround = "toggle ground mode press k";
     if(World::editor.alterMountain){
-        World::editor.textMountain = "toggle mountain mode press l";
+        World::editor.textMountain = "toggle mountain mode press l (delete: x)";
         World::editor.alterMountain = false;
     }
 }
 
 void GlWidget::toggleMountain(){
     World::editor.alterMountain ? World::editor.alterMountain = false : World::editor.alterMountain = true;
-    if(World::editor.alterMountain) World::editor.textMountain = "active mountain height: ";
-    else World::editor.textMountain = "toggle mountain mode press l";
+    if(World::editor.alterMountain) World::editor.textMountain = "mountain mode";
+    else World::editor.textMountain = "toggle mountain mode press l (delete: x)";
     if(World::editor.alterGround){
         World::editor.textGround = "toggle ground mode press k";
         World::editor.alterGround = false;
