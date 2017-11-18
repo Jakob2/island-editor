@@ -48,4 +48,11 @@ void Mouseray::readPixelColor(int x, int y){
     //std::cout<<"PIXELID: "<<World::mouse.pickedColor<<std::endl;
 }
 
+void Mouseray::setEditorHeight(int pickedColor){
+    if(pickedColor == 8421504) World::editor.height = 0;
+    if(pickedColor == 51) World::editor.height = 1;
+    if(pickedColor == 76) World::editor.height = 2;
+    if(pickedColor == 102) World::editor.height = 3;
+    std::cout<<"HEIGHT: "<<World::editor.height<<std::endl;
+}
 

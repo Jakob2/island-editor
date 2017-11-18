@@ -10,6 +10,7 @@ public:
     Mouseray();
     void calculateGLCoords(int x, int y);
     void readPixelColor(int x, int y);
+    void setEditorHeight(int pickedColor);
 
 private:
     GLint viewport[4];// Where The Viewport Values Will Be Stored

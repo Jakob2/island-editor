@@ -20,7 +20,6 @@ public:
     }view;
 
     static struct Editor{
-        //std::vector<int> baseRange;
         int range;
         int ground; //0=>grass, 1=>rock, 2=>water
         QString textGround;
@@ -35,6 +34,13 @@ public:
     static struct Mouse{
         int pickedColor;
     }mouse;
+
+    static struct Height{
+        std::vector<float> one;
+        std::vector<float> two;
+        std::vector<float> three;
+        std::vector<float> four;
+    }color;
 
     static std::vector<QString> names;
 };

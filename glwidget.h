@@ -29,6 +29,8 @@ private:
     void deleteMountain();
     void toggleGround();
     void toggleMountain();
+
+
 };
 
 #endif // GLWIDGET_H

@@ -61,10 +61,13 @@ void GlWidget::mousePressEvent(QMouseEvent *event){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     mountainColors(Tilemap::mountains);
     readPixelColor(mouseX,mouseY);
+    updateGL();
+    setEditorHeight(World::mouse.pickedColor);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     ground(Tilemap::tiles);
     mountain(Tilemap::mountains);
     calculateGLCoords(mouseX,mouseY);
+    updateGL();
     if(World::editor.alterGround) alterGround();
     if(World::editor.alterMountain) addMountain();
 }
@@ -93,14 +96,8 @@ void GlWidget::addMountain(){
     name = QString::number(World::editor.name);
     xx = QString::number(World::editor.tile[0]);
     zz = QString::number(World::editor.tile[1]);
-    height = QString::number(World::editor.height+1);
-    if((World::editor.height == 0 && World::mouse.pickedColor == 8421504)
-    || (World::editor.height == 1 && World::mouse.pickedColor == 51)
-    || (World::editor.height == 2 && World::mouse.pickedColor == 76)
-    || (World::editor.height == 3 && World::mouse.pickedColor == 102)){
-        Db::addMountain(name,xx,zz,height);
-        Db::setMountains(QString::number(World::editor.name));
-    }
+    Db::addMountain(name,xx,zz,QString::number(World::editor.height+1));
+    Db::setMountains(QString::number(World::editor.name));
 }
 
 void GlWidget::deleteMountain(){

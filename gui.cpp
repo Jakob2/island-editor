@@ -47,7 +47,7 @@ void Gui::ground(){
 }
 
 void Gui::zoom(){
-    World::view.zoom = (float)dial_zoom->value()/100;
+    World::view.zoom = (float)dial_zoom->value()/10;
 }
 
 void Gui::add(){
@@ -82,8 +82,4 @@ void Gui::select(){
     setMountains(QString::number(World::editor.name));
 }
 
-void Gui::height(){
-    World::editor.height = spinBox_height->value();
-    std::cout<<World::editor.height<<std::endl;
-}
 

@@ -61,12 +61,10 @@ void Tilemap::mountainColors(std::vector<std::vector<int> > &mountains){
         z = mountains[i][1];
         height = mountains[i][2];
         switch(height){
-            //case 0: cube(x,z,color(3),height); break;
+            case 0: cube(x,z,color(3),height); break;
             case 1: cube(x,z,color(4),height); break;
             case 2: cube(x,z,color(5),height); break;
             case 3: cube(x,z,color(6),height); break;
-            //case 4: cube(x,z,color(7),height); break;
-            //case 5: cube(x,z,color(7),height); break;
         }
     }
 }
@@ -76,11 +74,10 @@ std::vector<float> Tilemap::color(int ground){
         case 0: return {0,1,0}; break;
         case 1: return {.4,.4,.4}; break;
         case 2: return {0,0,1}; break;
-        case 3: return {.1,0,0}; break;
-        case 4: return {.2,0,0}; break;
-        case 5: return {.3,0,0}; break;
-        case 6: return {.4,0,0}; break;
-        //case 7: return {.5,0,0}; break;
+        case 3: return World::color.one; break;
+        case 4: return World::color.two; break;
+        case 5: return World::color.three; break;
+        case 6: return World::color.four; break;
         default: return {0,0,0};
     }
 }
